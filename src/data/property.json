@@ -1,0 +1,372 @@
+[
+  {
+    "property_id": "7c6f2a90-2c2c-4c8e-9df5-8a0f0c6c1a01",
+    "owner_id": "a1f8c5b2-5c9a-4b1f-9f6e-2d3a1e8b7c01",
+    "title": "Ljus etta nära Odenplan",
+    "price_per_night": 950,
+    "description": "Mysig studio med fransk balkong.",
+    "city": "Stockholm",
+    "country": "Sweden",
+    "guests": 2
+  },
+  {
+    "property_id": "8d7e3b91-3d3d-4d9f-a1e6-9b1f1d7d2b02",
+    "owner_id": "b2e9d6c3-7a1b-4d2c-8a7f-4e5b2f9c8d02",
+    "title": "Modern tvåa vid Linné",
+    "price_per_night": 1200,
+    "description": "Nära Slottsskogen och caféer.",
+    "city": "Gothenburg",
+    "country": "Sweden",
+    "guests": 3
+  },
+  {
+    "property_id": "9e8f4c92-4e4e-4ea0-b2f7-ac2f2e8e3c03",
+    "owner_id": "c3fad7e4-8b2c-4e3d-9b8a-5f6c3a0b9e03",
+    "title": "Nyrenoverad lägenhet vid Möllevången",
+    "price_per_night": 1100,
+    "description": "Tyst innergård, nära restauranger.",
+    "city": "Malmö",
+    "country": "Sweden",
+    "guests": 4
+  },
+  {
+    "property_id": "af905d93-5f5f-4fb1-c308-bd3f3f9f4d04",
+    "owner_id": "d4abe8f5-9c3d-4f4e-ac9b-6a7d4b1c0f04",
+    "title": "Studentnära tvåa i Flogsta",
+    "price_per_night": 890,
+    "description": "Perfekt bas för Uppsala-besök.",
+    "city": "Uppsala",
+    "country": "Sweden",
+    "guests": 2
+  },
+  {
+    "property_id": "b0a16ea4-6060-4102-d419-ce4010a00505",
+    "owner_id": "e5bcf906-ad4e-504f-bd0c-7b8e5c2d1a05",
+    "title": "Trähus med bastu nära älven",
+    "price_per_night": 1500,
+    "description": "Bastu och utsikt över Umeälven.",
+    "city": "Umeå",
+    "country": "Sweden",
+    "guests": 5
+  },
+  {
+    "property_id": "c1b27fb5-7171-4213-e52a-df5121b11606",
+    "owner_id": "a1f8c5b2-5c9a-4b1f-9f6e-2d3a1e8b7c01",
+    "title": "Kalkstenshus innanför ringmuren",
+    "price_per_night": 1800,
+    "description": "Charmigt boende nära Almedalen.",
+    "city": "Visby",
+    "country": "Sweden",
+    "guests": 4
+  },
+  {
+    "property_id": "d2c390c6-8282-4324-f63b-e06232c22707",
+    "owner_id": "b2e9d6c3-7a1b-4d2c-8a7f-4e5b2f9c8d02",
+    "title": "Fjällstuga med norrsken",
+    "price_per_night": 2200,
+    "description": "Utsikt mot Kebnekaise, öppen spis.",
+    "city": "Kiruna",
+    "country": "Sweden",
+    "guests": 6
+  },
+  {
+    "property_id": "e3d4a1d7-9393-4435-074c-f17343d33808",
+    "owner_id": "c3fad7e4-8b2c-4e3d-9b8a-5f6c3a0b9e03",
+    "title": "Central trea vid Svampen",
+    "price_per_night": 1150,
+    "description": "Gångavstånd till Conventum.",
+    "city": "Örebro",
+    "country": "Sweden",
+    "guests": 4
+  },
+  {
+    "property_id": "f4e5b2e8-a4a4-4546-185d-028454e44909",
+    "owner_id": "d4abe8f5-9c3d-4f4e-ac9b-6a7d4b1c0f04",
+    "title": "Havsutsikt nära Norra Hamnen",
+    "price_per_night": 1400,
+    "description": "Balkong med havsbris.",
+    "city": "Helsingborg",
+    "country": "Sweden",
+    "guests": 3
+  },
+  {
+    "property_id": "05f6c3f9-b5b5-4657-296e-139565f55a0a",
+    "owner_id": "e5bcf906-ad4e-504f-bd0c-7b8e5c2d1a05",
+    "title": "Tegelvilla nära universitetet",
+    "price_per_night": 1300,
+    "description": "Stor tomt och grillplats.",
+    "city": "Lund",
+    "country": "Sweden",
+    "guests": 5
+  },
+  {
+    "property_id": "1607d40a-c6c6-4768-3aaf-24a676066b0b",
+    "owner_id": "a1f8c5b2-5c9a-4b1f-9f6e-2d3a1e8b7c01",
+    "title": "Rymlig trea vid Stora Torget",
+    "price_per_night": 1050,
+    "description": "Ljus hörnlägenhet.",
+    "city": "Linköping",
+    "country": "Sweden",
+    "guests": 4
+  },
+  {
+    "property_id": "2718e51b-d7d7-4879-4bb0-35b787177c0c",
+    "owner_id": "b2e9d6c3-7a1b-4d2c-8a7f-4e5b2f9c8d02",
+    "title": "Vindslägenhet i Vasastan",
+    "price_per_night": 1600,
+    "description": "Exponerade bjälkar, mysigt loft.",
+    "city": "Stockholm",
+    "country": "Sweden",
+    "guests": 2
+  },
+  {
+    "property_id": "3829f62c-e8e8-498a-5cc1-46c898288d0d",
+    "owner_id": "c3fad7e4-8b2c-4e3d-9b8a-5f6c3a0b9e03",
+    "title": "Lägenhet med kanalutsikt",
+    "price_per_night": 1350,
+    "description": "Nära Turning Torso.",
+    "city": "Malmö",
+    "country": "Sweden",
+    "guests": 3
+  },
+  {
+    "property_id": "493a073d-f9f9-4a9b-6dd2-57d9a9399e0e",
+    "owner_id": "d4abe8f5-9c3d-4f4e-ac9b-6a7d4b1c0f04",
+    "title": "Familjevänligt radhus i Eriksberg",
+    "price_per_night": 1450,
+    "description": "Lekplats utanför dörren.",
+    "city": "Uppsala",
+    "country": "Sweden",
+    "guests": 5
+  },
+  {
+    "property_id": "5a4b184e-0a0a-4bab-7ee3-68eaba4aae0f",
+    "owner_id": "e5bcf906-ad4e-504f-bd0c-7b8e5c2d1a05",
+    "title": "Designlägenhet i City",
+    "price_per_night": 1900,
+    "description": "Nära NK och teatrar.",
+    "city": "Stockholm",
+    "country": "Sweden",
+    "guests": 2
+  },
+  {
+    "property_id": "6b5c295f-1b1b-4cbc-8ff4-79fbbb5bbf10",
+    "owner_id": "a1f8c5b2-5c9a-4b1f-9f6e-2d3a1e8b7c01",
+    "title": "Hamnläge vid Eriksbergskranen",
+    "price_per_night": 1550,
+    "description": "Båtpendel runt hörnet.",
+    "city": "Gothenburg",
+    "country": "Sweden",
+    "guests": 3
+  },
+  {
+    "property_id": "7c6d3a70-2c2c-4c8e-9001-8a0f0c6c1a11",
+    "owner_id": "b2e9d6c3-7a1b-4d2c-8a7f-4e5b2f9c8d02",
+    "title": "Skärgårdsstuga på Värmdö",
+    "price_per_night": 2100,
+    "description": "Egen brygga och roddbåt.",
+    "city": "Stockholm",
+    "country": "Sweden",
+    "guests": 6
+  },
+  {
+    "property_id": "8d7e4b81-3d3d-4d9f-a1e6-9b1f1d7d2b12",
+    "owner_id": "c3fad7e4-8b2c-4e3d-9b8a-5f6c3a0b9e03",
+    "title": "Lantlig stuga nära Höga Kusten",
+    "price_per_night": 1250,
+    "description": "Vandringsleder utanför knuten.",
+    "city": "Härnösand",
+    "country": "Sweden",
+    "guests": 4
+  },
+  {
+    "property_id": "9e8f5c72-4e4e-4ea0-b2f7-ac2f2e8e3c13",
+    "owner_id": "d4abe8f5-9c3d-4f4e-ac9b-6a7d4b1c0f04",
+    "title": "Penthouse med takterrass",
+    "price_per_night": 2400,
+    "description": "Utsikt över staden.",
+    "city": "Stockholm",
+    "country": "Sweden",
+    "guests": 2
+  },
+  {
+    "property_id": "af906d62-5f5f-4fb1-c308-bd3f3f9f4d14",
+    "owner_id": "e5bcf906-ad4e-504f-bd0c-7b8e5c2d1a05",
+    "title": "Sekelskifte nära Haga",
+    "price_per_night": 1700,
+    "description": "Högt i tak och kakelugn.",
+    "city": "Gothenburg",
+    "country": "Sweden",
+    "guests": 4
+  },
+  {
+    "property_id": "b0a17e54-6060-4102-d419-ce4010a00515",
+    "owner_id": "a1f8c5b2-5c9a-4b1f-9f6e-2d3a1e8b7c01",
+    "title": "Hus vid stranden i Ystad",
+    "price_per_night": 2000,
+    "description": "Promenadavstånd till havet.",
+    "city": "Ystad",
+    "country": "Sweden",
+    "guests": 6
+  },
+  {
+    "property_id": "c1b28f45-7171-4213-e52a-df5121b11616",
+    "owner_id": "b2e9d6c3-7a1b-4d2c-8a7f-4e5b2f9c8d02",
+    "title": "Parhus i Väster",
+    "price_per_night": 1150,
+    "description": "Lugnt område nära centrum.",
+    "city": "Örebro",
+    "country": "Sweden",
+    "guests": 5
+  },
+  {
+    "property_id": "d2c3a055-8282-4324-f63b-e06232c22717",
+    "owner_id": "c3fad7e4-8b2c-4e3d-9b8a-5f6c3a0b9e03",
+    "title": "Falurött torp med vedeldad bastu",
+    "price_per_night": 1300,
+    "description": "Skogsglänta och badsjö i närheten.",
+    "city": "Falun",
+    "country": "Sweden",
+    "guests": 4
+  },
+  {
+    "property_id": "e3d4b065-9393-4435-074c-f17343d33818",
+    "owner_id": "d4abe8f5-9c3d-4f4e-ac9b-6a7d4b1c0f04",
+    "title": "Citynära studio vid Avenyn",
+    "price_per_night": 980,
+    "description": "Perfekt för weekend.",
+    "city": "Gothenburg",
+    "country": "Sweden",
+    "guests": 2
+  },
+  {
+    "property_id": "f4e5c075-a4a4-4546-185d-028454e44919",
+    "owner_id": "e5bcf906-ad4e-504f-bd0c-7b8e5c2d1a05",
+    "title": "Ljus lägenhet vid Triangeln",
+    "price_per_night": 1120,
+    "description": "Nära tåg och shopping.",
+    "city": "Malmö",
+    "country": "Sweden",
+    "guests": 3
+  },
+  {
+    "property_id": "05f6d185-b5b5-4657-296e-139565f55a1a",
+    "owner_id": "a1f8c5b2-5c9a-4b1f-9f6e-2d3a1e8b7c01",
+    "title": "Husbåt på Söder Mälarstrand",
+    "price_per_night": 2300,
+    "description": "Unik upplevelse på vattnet.",
+    "city": "Stockholm",
+    "country": "Sweden",
+    "guests": 4
+  },
+  {
+    "property_id": "1607e295-c6c6-4768-3aaf-24a676066b1b",
+    "owner_id": "b2e9d6c3-7a1b-4d2c-8a7f-4e5b2f9c8d02",
+    "title": "Stuga i Sälen med skid-in/out",
+    "price_per_night": 2600,
+    "description": "Perfekt för vinterresor.",
+    "city": "Sälen",
+    "country": "Sweden",
+    "guests": 7
+  },
+  {
+    "property_id": "2718f2a5-d7d7-4879-4bb0-35b787177c1c",
+    "owner_id": "c3fad7e4-8b2c-4e3d-9b8a-5f6c3a0b9e03",
+    "title": "Fiskestuga vid Vättern",
+    "price_per_night": 1250,
+    "description": "Egen brygga och roddbåt.",
+    "city": "Motala",
+    "country": "Sweden",
+    "guests": 4
+  },
+  {
+    "property_id": "382a03b6-e8e8-498a-5cc1-46c898288d1d",
+    "owner_id": "d4abe8f5-9c3d-4f4e-ac9b-6a7d4b1c0f04",
+    "title": "Loft med industrikänsla",
+    "price_per_night": 1750,
+    "description": "Gamla fabriken, ny interiör.",
+    "city": "Norrköping",
+    "country": "Sweden",
+    "guests": 3
+  },
+  {
+    "property_id": "493a14c7-f9f9-4a9b-6dd2-57d9a9399e1e",
+    "owner_id": "e5bcf906-ad4e-504f-bd0c-7b8e5c2d1a05",
+    "title": "Stadsvy från 17:e våningen",
+    "price_per_night": 1950,
+    "description": "Hiss och balkong.",
+    "city": "Umeå",
+    "country": "Sweden",
+    "guests": 4
+  },
+  {
+    "property_id": "5a4b25d8-0a0a-4bab-7ee3-68eaba4aae1f",
+    "owner_id": "a1f8c5b2-5c9a-4b1f-9f6e-2d3a1e8b7c01",
+    "title": "Villa med pool i Täby",
+    "price_per_night": 2800,
+    "description": "Familjevänligt boende.",
+    "city": "Täby",
+    "country": "Sweden",
+    "guests": 8
+  },
+  {
+    "property_id": "6b5c36ea-1b1b-4cbc-8ff4-79fbbb5bbf20",
+    "owner_id": "b2e9d6c3-7a1b-4d2c-8a7f-4e5b2f9c8d02",
+    "title": "Centralt boende nära Centralen",
+    "price_per_night": 1500,
+    "description": "Perfekt pendlarläge.",
+    "city": "Stockholm",
+    "country": "Sweden",
+    "guests": 2
+  },
+  {
+    "property_id": "7c6d4b82-2c2c-4c8e-9001-8a0f0c6c1a21",
+    "owner_id": "c3fad7e4-8b2c-4e3d-9b8a-5f6c3a0b9e03",
+    "title": "Lägenhet vid Domkyrkan",
+    "price_per_night": 1180,
+    "description": "Historisk miljö.",
+    "city": "Lund",
+    "country": "Sweden",
+    "guests": 3
+  },
+  {
+    "property_id": "8d7e5c93-3d3d-4d9f-a1e6-9b1f1d7d2b22",
+    "owner_id": "d4abe8f5-9c3d-4f4e-ac9b-6a7d4b1c0f04",
+    "title": "Lägenhet vid A6-området",
+    "price_per_night": 1080,
+    "description": "Shopping och natur nära.",
+    "city": "Jönköping",
+    "country": "Sweden",
+    "guests": 4
+  },
+  {
+    "property_id": "9e8f6da4-4e4e-4ea0-b2f7-ac2f2e8e3c23",
+    "owner_id": "e5bcf906-ad4e-504f-bd0c-7b8e5c2d1a05",
+    "title": "Stuga vid havet med bastu",
+    "price_per_night": 2050,
+    "description": "Kvällsdopp och bastubad.",
+    "city": "Varberg",
+    "country": "Sweden",
+    "guests": 5
+  },
+  {
+    "property_id": "af907eb5-5f5f-4fb1-c308-bd3f3f9f4d24",
+    "owner_id": "a1f8c5b2-5c9a-4b1f-9f6e-2d3a1e8b7c01",
+    "title": "Townhouse vid Munksjön",
+    "price_per_night": 1650,
+    "description": "Utsikt över sjön.",
+    "city": "Jönköping",
+    "country": "Sweden",
+    "guests": 6
+  },
+  {
+    "property_id": "b0a18fc6-6060-4102-d419-ce4010a00525",
+    "owner_id": "b2e9d6c3-7a1b-4d2c-8a7f-4e5b2f9c8d02",
+    "title": "Lägenhet nära Campus Valla",
+    "price_per_night": 980,
+    "description": "Studentnära och lugnt.",
+    "city": "Linköping",
+    "country": "Sweden",
+    "guests": 2
+  }
+]
