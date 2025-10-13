@@ -1,0 +1,72 @@
+[
+  {
+    "id": "1",
+    "name": "Alice Andersson",
+    "email": "alice@example.com",
+    "password": "password123",
+    "isAdmin": false
+  },
+  {
+    "id": "2",
+    "name": "Bob Bergström",
+    "email": "bob@example.com",
+    "password": "password123",
+    "isAdmin": false
+  },
+  {
+    "id": "3",
+    "name": "Clara Claesson",
+    "email": "clara@example.com",
+    "password": "password123",
+    "isAdmin": false
+  },
+  {
+    "id": "4",
+    "name": "David Dahl",
+    "email": "david@example.com",
+    "password": "password123",
+    "isAdmin": true
+  },
+  {
+    "id": "5",
+    "name": "Ella Engström",
+    "email": "ella@example.com",
+    "password": "password123",
+    "isAdmin": false
+  },
+  {
+    "id": "6",
+    "name": "Filip Forsberg",
+    "email": "filip@example.com",
+    "password": "password123",
+    "isAdmin": false
+  },
+  {
+    "id": "7",
+    "name": "Greta Gustafsson",
+    "email": "greta@example.com",
+    "password": "password123",
+    "isAdmin": true
+  },
+  {
+    "id": "8",
+    "name": "Hugo Holm",
+    "email": "hugo@example.com",
+    "password": "password123",
+    "isAdmin": false
+  },
+  {
+    "id": "9",
+    "name": "Ida Isaksson",
+    "email": "ida@example.com",
+    "password": "password123",
+    "isAdmin": false
+  },
+  {
+    "id": "10",
+    "name": "Jonas Johansson",
+    "email": "jonas@example.com",
+    "password": "password123",
+    "isAdmin": true
+  }
+]
