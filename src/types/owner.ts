@@ -1,6 +1,6 @@
-export type PayoutMethod = "bank_transfer" | "paypal";
+type PayoutMethod = "bank_transfer" | "paypal";
 
-export interface NewOwner {
+interface NewOwner {
   owner_id?: string;
   name: string;
   email: string;
@@ -10,7 +10,7 @@ export interface NewOwner {
 
 }
 
-export interface Owner extends NewOwner {
+interface Owner extends NewOwner {
   owner_id: string;
   password_hash: string;
   created_at: string;
