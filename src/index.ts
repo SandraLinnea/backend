@@ -50,7 +50,7 @@ app.onError((err, c) => {
 serve(
   {
     fetch: app.fetch,
-    port: Number(process.env.HONO_PORT) || 3000,
+    port: Number(process.env.HONO_PORT) || 3002,
   },
   (info) => {
     console.log(`Server is running on http://localhost:${info.port}`);
