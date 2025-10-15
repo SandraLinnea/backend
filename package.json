@@ -13,7 +13,8 @@
     "@supabase/supabase-js": "^2.47.10",
     "bcryptjs": "^3.0.2",
     "hono": "^4.9.12",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "slugify": "^1.6.6"
   },
   "devDependencies": {
     "@hono/vite-build": "^1.1.0",
