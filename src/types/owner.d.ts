@@ -6,7 +6,7 @@ interface NewOwner {
   email: string;
   password: string;
   phone?: string;
-  is_company?: boolean;      // företag vs privatperson
+  is_company?: boolean;
 
 }
 
@@ -16,12 +16,3 @@ interface Owner extends NewOwner {
   created_at: string;
   updated_at?: string;
 }
-
-/* 
-export interface OwnerListQuery {
-  q?: string;
-  sort_by?: string;
-  offset?: number;
-  limit?: number;
-}
-*/

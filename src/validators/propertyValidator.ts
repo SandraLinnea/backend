@@ -15,7 +15,6 @@ const schema: z.ZodType<NewProperty> = z.object({
   guests: z.number().int().positive().optional(),
 }).strict();
 
-
 export const propertyValidator = zValidator("json", schema, (result, c) => {
   if (!result.success) {
     return c.json({ errors: result.error.issues }, 400);
@@ -29,14 +28,8 @@ export const propertyValidator = zValidator("json", schema, (result, c) => {
 });
 
 const propertyQuerySchema: z.ZodType<PropertyListQuery> = z.object({
-    limit: z.coerce.number().optional().default(10),
-    offset: z.coerce.number().optional().default(0),
-    department: z.string().optional(),
-    q: z.string().optional(),
-    sort_by: z
-      .union([z.literal("title"), z.literal("start_date"), z.string()])
-      .optional()
-      .default("title"),
-  });
+  limit: z .coerce.number().positive().max(100).optional().default(10),
+  offset: z.coerce.number().int().min(0).optional().default(0),
+});
   
   export const propertyQueryValidator = zValidator("query", propertyQuerySchema);

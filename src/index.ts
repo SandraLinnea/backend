@@ -1,6 +1,7 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
+import { supabase } from "./lib/supabase.js";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -16,14 +17,17 @@ const app = new Hono( {
 
 const serverStartTime = Date.now()
 
-// app.use("*", optionalAuth)
+app.use("*", async (c, next) => {
+  c.set("supabase", supabase);
+  await next();
+});
 
 app.get("/", (c) => {
   return c.text("Hello Hono!");
 });
 // app.route ("/auth", authApp)
 app.route("/property", propertyApp);
-// app.route("/students", studentApp);
+// app.route("/user", userApp);
 
 app.get("/health/", (c) => {
   const now = Date.now()

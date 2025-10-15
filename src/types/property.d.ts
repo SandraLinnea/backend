@@ -6,7 +6,7 @@ interface NewProperty {
   description?: string;
   city?: string;
   country?: string;
-  // images?: string[];          // URL:er
+  // images?: string[]; 
   guests?: number;
 }
 
@@ -17,7 +17,4 @@ interface Property extends NewProperty {
 type PropertyListQuery = {
   limit?: number;
   offset?: number;
-  city?: string;
-  q?: string;
-  sort_by?: "title" | "price_per_night" | string;
 };

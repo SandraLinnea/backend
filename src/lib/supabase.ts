@@ -7,7 +7,7 @@ const _supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
 
 if (!_supabaseUrl || !_supabaseAnonKey) {
   throw new Error(
-    "Supabase not initalized add 'SUPABASE_URL' and 'SUPABASE_ANON_KEY' to enviroment variables"
+    "Supabase not initialized add 'SUPABASE_URL' and 'SUPABASE_ANON_KEY' to enviroment variables"
   );
 }
 
