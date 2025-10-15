@@ -10,11 +10,11 @@ interface NewProperty {
   guests?: number;
 }
 
-export interface Property extends NewProperty {
+interface Property extends NewProperty {
   property_id: string;
 }
 
-export type PropertyListQuery = {
+type PropertyListQuery = {
   limit?: number;
   offset?: number;
   city?: string;
