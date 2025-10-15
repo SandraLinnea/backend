@@ -8,6 +8,7 @@ dotenv.config();
 // import { optionalAuth } from "./middleware/auth.js";
 // import { authApp } from "./routes/auth.js";
 // import userApp from "./routes/user.js";
+import propertyApp from "./routes/property.js";
 
 const app = new Hono( {
   strict: false
@@ -21,7 +22,7 @@ app.get("/", (c) => {
   return c.text("Hello Hono!");
 });
 // app.route ("/auth", authApp)
-// app.route("/courses", courseApp);
+app.route("/property", propertyApp);
 // app.route("/students", studentApp);
 
 app.get("/health/", (c) => {
