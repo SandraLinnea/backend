@@ -1,5 +1,4 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { Property, PropertyListQuery } from "../types/property.js";
 
 export type PaginatedListResponse<T> = {
   data: T[];

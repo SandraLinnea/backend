@@ -1,6 +1,5 @@
 import { Hono } from "hono";
 import * as db from "../database/property.js";
-import { Property, PropertyListQuery } from "../types/property.js";
 import { propertyValidator, propertyQueryValidator } from "../validators/propertyValidator.js";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { PaginatedListResponse } from "../database/property.js";

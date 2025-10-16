@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import dotenv from "dotenv"
 dotenv.config();
 
@@ -15,5 +15,9 @@ export const supabase = createClient(_supabaseUrl, _supabaseAnonKey);
 
 const supabaseUrl = _supabaseUrl as string
 const supabaseAnonKey = _supabaseAnonKey as string
+
+declare module 'hono' {
+  interface ContextVariableMap { supabase: SupabaseClient }
+}
 
 export { supabaseUrl, supabaseAnonKey }
