@@ -34,3 +34,25 @@ export async function getProperty(sb: SupabaseClient, id: string): Promise<Prope
   if (error) throw error;
   return data as Property;
 }
+
+export async function createProperty(sb: SupabaseClient, property: NewProperty): Promise<Property> {
+  const query = sb.from("properties").insert([property]).select().single();
+  const response = await query;
+  if (response.error) throw response.error;
+  return response.data as Property;
+}
+
+export async function updateProperty(sb: SupabaseClient, id: string, property: NewProperty): Promise<Property | null> {
+  const propertyWithoutId = { ...property, property_code: undefined };
+  const query = sb.from("properties").update(propertyWithoutId).eq("property_code", id).select().single();
+  const response = await query;
+  if (response.error) throw response.error;
+  return response.data as Property | null;
+}
+
+export async function deleteProperty(sb: SupabaseClient, id: string): Promise<Property | null> {
+  const query = sb.from("properties").delete().eq("property_code", id).select().single();
+  const response = await query;
+  if (response.error) throw response.error;
+  return response.data as Property | null;
+}

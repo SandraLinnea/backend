@@ -1,13 +1,11 @@
 interface NewProperty {
-  property_id?: string;
-  owner_id: string;
+  property_id?: string; 
   title: string;
-  price_per_night: number;
   description?: string;
   city?: string;
   country?: string;
-  // images?: string[]; 
-  guests?: number;
+  price_per_night: number;
+  availability?: boolean;
 }
 
 interface Property extends NewProperty {

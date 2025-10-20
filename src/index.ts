@@ -8,8 +8,9 @@ dotenv.config();
 
 // import { optionalAuth } from "./middleware/auth.js";
 // import { authApp } from "./routes/auth.js";
-// import userApp from "./routes/user.js";
+import userApp from "./routes/user.js";
 import propertyApp from "./routes/property.js";
+// import bookingApp from "./routes/booking.js";
 
 const app = new Hono( {
   strict: false
@@ -27,7 +28,8 @@ app.get("/", (c) => {
 });
 // app.route ("/auth", authApp)
 app.route("/property", propertyApp);
-// app.route("/user", userApp);
+app.route("/user", userApp);
+// app.booking("/booking", bookingApp);
 
 app.get("/health/", (c) => {
   const now = Date.now()

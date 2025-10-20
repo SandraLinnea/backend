@@ -12,9 +12,7 @@ interface User extends NewUser {
   created_at: string;
 }
 
-/* interface UserListQuery {
-  q?: string;
-  sort_by?: string;
-  offset?: number;
+type UserListQuery = {
   limit?: number;
-} */
+  offset?: number;
+};
