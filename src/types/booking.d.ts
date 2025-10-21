@@ -1,23 +1,23 @@
 export type BookingStatus = "pending" | "confirmed" | "cancelled";
 
-export interface NewBooking {
-  booking_id?: string;
+interface NewBooking {
   property_id: string;
   user_id: string;
   start_date: string;
-  end_date: string;
-
+  end_date: string; 
   guests?: number;
   note?: string;
   status?: BookingStatus;
 }
 
-export interface Booking extends NewBooking {
+interface Booking extends NewBooking {
+  id: string;
   booking_id: string;
   total_price: number;
+  created_at: string;
 }
 
-export type BookingListQuery = {
+type BookingListQuery = {
   limit?: number;
   offset?: number;
   property_id?: string;
