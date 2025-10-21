@@ -5,7 +5,6 @@ import { optionalAuth, requireAuth } from "../middleware/auth";
 
 const userApp = new Hono();
 
-// LIST profiles
 userApp.get("/", userQueryValidator, async (c) => {
   const sb = c.get("supabase") as SupabaseClient;
   const query = c.req.valid("query") as UserListQuery;

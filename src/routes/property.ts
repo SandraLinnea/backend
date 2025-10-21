@@ -1,11 +1,16 @@
 import { Hono } from "hono";
 import * as db from "../database/property.js";
-import { propertyQueryValidator } from "../validators/propertyValidator.js";
+import { propertyValidator, propertyQueryValidator } from "../validators/propertyValidator.js";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { PaginatedListResponse } from "../database/property.js";
 import { HTTPException } from "hono/http-exception";
+import { requireAuth } from "../middleware/auth.js";
 
 const propertyApp = new Hono();
+
+const isUUID = (s: string) =>
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(s);
+
 
 propertyApp.get("/", propertyQueryValidator, async (c) => {
   const query = c.req.valid("query");
@@ -30,88 +35,54 @@ propertyApp.get("/", propertyQueryValidator, async (c) => {
   }
 });
 
-/* propertyApp.get("/:id", async (c) => {
-  const { id } = c.req.param();
-  const sb = c.get("supabase");
-
-  try {
-    const property = await db.getProperty(sb, id);
-    if (!property) {
-      throw new HTTPException(404, {
-        res: c.json({ error: "Could not find property" }, 404),
-      });
-    }
-    return c.json(property, 200);
-  } catch (error) {
-    console.error("Error in getting property", error);
-    throw new HTTPException(404, {
-      res: c.json({ error: "Could not find property" }, 404),
-    });
-  }
-}); */
-
 propertyApp.get("/:id", async (c) => {
   const { id } = c.req.param();
   const sb = c.get("supabase");
-  try {
-    const property = await sb.from("properties").select("*").eq("property_code", id).single();
-    if (!property.data) {
-      throw new HTTPException(404, {
-        res: c.json({ error: "Could not find property" }, 404),
-      });
-    }
-    return c.json(property.data, 200);
-  } catch (error) {
-    console.error("Error in getting property", error);
-    throw new HTTPException(404, {
-      res: c.json({ error: "Could not find property" }, 404),
-    });
-  }
+
+  const base = sb.from("properties").select("*");
+  const { data, error } = isUUID(id)
+    ? await base.eq("id", id).single()
+    : await base.eq("property_code", id).single();
+
+  if (error) return c.json({ error: "Could not find property" }, 404);
+  return c.json(data, 200);
 });
 
 
-
-propertyApp.post("/", async (c) => {
+propertyApp.post("/", requireAuth, propertyValidator, async (c) => {
   const sb = c.get("supabase") as SupabaseClient;
-  const body = await c.req.json();
+  const user = c.get("user")!;
+  const body = c.req.valid("json") as NewProperty;
 
-  try {
-    const { data, error } = await sb.from("properties").insert([body]).select().single();
-    if (error) throw error;
-    return c.json(data, 201);
-  } catch (error) {
-    console.error("Error creating property", error);
-    return c.json({ error: "Could not create property" }, 400);
-  }
+  const payload = { ...body, owner_id: user.id }; 
+  const { data, error } = await sb.from("properties").insert([payload]).select().single();
+  if (error) return c.json({ error: error.message }, 400);
+  return c.json(data, 201);
 });
 
-propertyApp.put("/:id", async (c) => {
+propertyApp.put("/:id", requireAuth, async (c) => {
   const sb = c.get("supabase") as SupabaseClient;
+  const user = c.get("user")!;
   const { id } = c.req.param();
   const body = await c.req.json();
 
-  try {
-    const { data, error } = await sb.from("properties").update(body).eq("property_code", id).select().single();
-    if (error) throw error;
-    return c.json(data, 200);
-  } catch (error) {
-    console.error("Error updating property", error);
-    return c.json({ error: "Could not update property" }, 400);
-  }
+  const { data, error } = await sb.from("properties")
+    .update(body)
+    .eq("property_code", id) 
+    .select()
+    .single();
+
+  if (error) return c.json({ error: error.message }, 400);
+  return c.json(data, 200);
 });
 
-propertyApp.delete("/:id", async (c) => {
+propertyApp.delete("/:id", requireAuth, async (c) => {
   const sb = c.get("supabase") as SupabaseClient;
   const { id } = c.req.param();
 
-  try {
-    const { error } = await sb.from("properties").delete().eq("property_code", id);
-    if (error) throw error;
-    return c.json({ message: "Property deleted" }, 200);
-  } catch (error) {
-    console.error("Error deleting property", error);
-    return c.json({ error: "Could not delete property" }, 400);
-  }
+  const { error } = await sb.from("properties").delete().eq("property_code", id);
+  if (error) return c.json({ error: error.message }, 400);
+  return c.json({ message: "Property deleted" }, 200);
 });
 
 export default propertyApp;

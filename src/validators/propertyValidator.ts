@@ -11,7 +11,6 @@ const schema: z.ZodType<NewProperty> = z.object({
   description: z.string().optional(),
   city: z.string().optional(),
   country: z.string().optional(),
-  // images: z.array(z.string().url()).optional(),
   guests: z.number().int().positive().optional(),
 }).strict();
 

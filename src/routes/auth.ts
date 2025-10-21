@@ -20,18 +20,12 @@ authApp.post("/register", zValidator("json", registerSchema), async (c) => {
   const sb = c.get("supabase") as SupabaseClient;
   const { email, password, name } = c.req.valid("json");
 
-  const { data, error } = await sb.auth.signUp({ email, password });
+  const { data, error } = await sb.auth.signUp({
+    email,
+    password,
+    options: { data: { name } }
+  });
   if (error) return c.json({ error: error.message }, 400);
-
-  const uid = data.user?.id;
-  if (uid) {
-    const { error: upsertErr } = await sb
-      .from("profiles")
-      .upsert({ id: uid, name, is_admin: false })
-      .select()
-      .single();
-    if (upsertErr) return c.json({ error: upsertErr.message }, 400);
-  }
 
   return c.json(
     data.user
@@ -40,6 +34,7 @@ authApp.post("/register", zValidator("json", registerSchema), async (c) => {
     data.user ? 201 : 202
   );
 });
+
 
 authApp.post("/login", zValidator("json", loginSchema), async (c) => {
   const sb = c.get("supabase") as SupabaseClient;
