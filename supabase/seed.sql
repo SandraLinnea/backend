@@ -27,7 +27,7 @@ create table if not exists public.properties (
   constraint property_id_not_empty check (length(trim(coalesce(property_id,''))) > 0)
 );
 
---för att uppdatera properties
+--Trigger for updated_at
 create or replace function public.set_updated_at()
 returns trigger
 language plpgsql
@@ -37,6 +37,7 @@ begin
   return new;
 end;
 $$;
+
 
 -- insert data properties
 insert into public.properties
@@ -72,3 +73,107 @@ values
 ('PROP-000010028','Karlín loft','Tyst innergård','Praha','CZ',1000.00,true),
 ('PROP-000010029','Kazimierz nook','Kreativt område','Kraków','PL',850.00,true),
 ('PROP-000010030','Baltic sea view','Högst upp i huset','Tallinn','EE',800.00,true);
+
+
+
+-- Trigger for booking
+-- Extensions
+create extension if not exists pgcrypto;     -- för gen_random_uuid()
+create extension if not exists btree_gist;   -- för EXCLUDE på daterange
+
+-- 1) Tabell
+create table if not exists public.bookings (
+  id uuid primary key default gen_random_uuid(),
+  booking_id text unique,                          -- läsbart id (BOOK-...)
+  user_id uuid not null,                           -- auth.users.id
+  property_id uuid not null references public.properties(id) on delete cascade,
+  start_date date not null,
+  end_date date not null,
+  guests int not null default 1,
+  note text,
+  status text not null default 'pending' check (status in ('pending','confirmed','cancelled')),
+  total_price numeric(12,2) not null default 0,
+  created_at timestamptz not null default now()
+);
+
+-- 2) Grundregler
+alter table public.bookings
+  add constraint bookings_date_order check (end_date > start_date);
+
+-- Förhindra överlapp för samma property när bokning inte är "cancelled"
+-- daterange är [start, end) för normal hotell-logik
+alter table public.bookings
+  add constraint bookings_no_overlap
+  exclude using gist (
+    property_id with =,
+    daterange(start_date, end_date, '[)') with &&
+  )
+  where (status in ('pending','confirmed'));
+
+-- 3) Sekvens + generator för läsbart ID
+create sequence if not exists public.booking_id_seq;
+
+create or replace function public.make_booking_id()
+returns text language plpgsql as $$
+declare n bigint;
+begin
+  n := nextval('public.booking_id_seq');
+  return 'BOOK-' || lpad(n::text, 7, '0');
+end; $$;
+
+-- 4) Trigger: sätt booking_id + total_price automatiskt
+create or replace function public.set_booking_defaults()
+returns trigger language plpgsql as $$
+declare
+  nightly numeric(12,2);
+  nights int;
+begin
+  -- booking_id
+  if new.booking_id is null or new.booking_id = '' then
+    new.booking_id := public.make_booking_id();
+  end if;
+
+  -- total_price = (antal nätter) * price_per_night från properties
+  select price_per_night::numeric into nightly
+  from public.properties
+  where id = new.property_id;
+
+  nights := greatest( (new.end_date - new.start_date), 0);
+  if nightly is null then nightly := 0; end if;
+  new.total_price := (nights * nightly);
+
+  return new;
+end; $$;
+
+drop trigger if exists trg_set_booking_defaults on public.bookings;
+create trigger trg_set_booking_defaults
+before insert or update on public.bookings
+for each row execute function public.set_booking_defaults();
+
+-- 5) Synka sekvens ifall du importerat data tidigare
+select setval('public.booking_id_seq',
+  (select coalesce(max((regexp_replace(booking_id, '^BOOK-','')::bigint)),0)+1 from public.bookings),
+  false);
+
+-- 6) (Valfritt) RLS – enkel läspolicy (anpassa efter behov)
+alter table public.bookings enable row level security;
+
+do $$
+begin
+  if not exists (select 1 from pg_policies where tablename='bookings' and policyname='bookings_select') then
+    create policy bookings_select on public.bookings
+    for select to authenticated using (true);
+  end if;
+  if not exists (select 1 from pg_policies where tablename='bookings' and policyname='bookings_insert') then
+    create policy bookings_insert on public.bookings
+    for insert to authenticated with check (auth.uid() = user_id);
+  end if;
+  if not exists (select 1 from pg_policies where tablename='bookings' and policyname='bookings_update') then
+    create policy bookings_update on public.bookings
+    for update to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
+  end if;
+  if not exists (select 1 from pg_policies where tablename='bookings' and policyname='bookings_delete') then
+    create policy bookings_delete on public.bookings
+    for delete to authenticated using (auth.uid() = user_id);
+  end if;
+end $$;
