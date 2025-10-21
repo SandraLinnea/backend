@@ -177,3 +177,106 @@ begin
     for delete to authenticated using (auth.uid() = user_id);
   end if;
 end $$;
+
+
+
+
+-- Table booking
+create table if not exists public.bookings (
+  id uuid primary key default gen_random_uuid(),
+  booking_id text unique,
+  property_id uuid not null references public.properties(id) on delete cascade,
+  user_id uuid not null,
+  start_date date not null,
+  end_date date not null,
+  guests int not null default 1,
+  status text not null default 'pending' check (status in ('pending','confirmed','cancelled')),
+  total_price numeric(12,2) not null default 0,
+  note text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+-- sekvens för läsbara booking-id:n
+create sequence if not exists booking_code_seq;
+
+-- funktion: skapa "BOOK-0000001234"
+create or replace function public.make_booking_id()
+returns text language sql as $$
+  select 'BOOK-' || lpad(nextval('booking_code_seq')::text, 10, '0');
+$$;
+
+-- trigger-funktion som sätter booking_id om null
+create or replace function public.set_booking_code()
+returns trigger language plpgsql as $$
+begin
+  if new.booking_id is null then
+    new.booking_id := public.make_booking_id();
+  end if;
+  return new;
+end;
+$$;
+
+-- trigger på INSERT
+drop trigger if exists trg_set_booking_code on public.bookings;
+create trigger trg_set_booking_code
+before insert on public.bookings
+for each row
+execute function public.set_booking_code();
+
+-- bookings.updated_at
+drop trigger if exists trg_bookings_updated_at on public.bookings;
+create trigger trg_bookings_updated_at
+before update on public.bookings
+for each row
+execute function public.set_updated_at();
+
+-- (valfritt) om du inte redan har denna på properties:
+drop trigger if exists trg_properties_updated_at on public.properties;
+create trigger trg_properties_updated_at
+before update on public.properties
+for each row
+execute function public.set_updated_at();
+
+create or replace function public.set_booking_total_price()
+returns trigger language plpgsql as $$
+declare nightly numeric(12,2);
+        nights int;
+begin
+  -- hämta pris per natt från properties
+  select price_per_night::numeric into nightly
+  from public.properties
+  where id = new.property_id;
+
+  -- räkna nätter i dagar (end exclusive – classic hotell-logik)
+  nights := greatest((new.end_date - new.start_date), 0);
+
+  new.total_price := coalesce(nightly, 0) * nights;
+  return new;
+end;
+$$;
+
+drop trigger if exists trg_set_booking_total on public.bookings;
+create trigger trg_set_booking_total
+before insert or update on public.bookings
+for each row
+execute function public.set_booking_total_price();
+
+
+-- ta bort gammalt constraint om du experimenterat innan
+do $$
+begin
+  if exists (select 1 from pg_constraint where conname = 'bookings_no_overlap') then
+    alter table public.bookings drop constraint bookings_no_overlap;
+  end if;
+end $$;
+
+-- EXCLUDE-constraint (kräver btree_gist)
+alter table public.bookings
+add constraint bookings_no_overlap
+exclude using gist (
+  property_id with =,
+  daterange(start_date, end_date, '[)') with &&
+)
+where (status in ('pending','confirmed'));
+
