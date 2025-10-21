@@ -13,7 +13,6 @@ declare module "hono" {
 }
 
 function createSupabaseForRequest(c: Context) {
-  const isHttps = new URL(c.req.url).protocol === "https:";
   return createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
       getAll() {
