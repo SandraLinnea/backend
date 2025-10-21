@@ -6,11 +6,11 @@ import { supabase } from "./lib/supabase.js";
 import dotenv from "dotenv";
 dotenv.config();
 
-// import { optionalAuth } from "./middleware/auth.js";
-// import { authApp } from "./routes/auth.js";
+import { optionalAuth } from "./middleware/auth.js";
+import authApp from "./routes/auth.js";
 import userApp from "./routes/user.js";
 import propertyApp from "./routes/property.js";
-// import bookingApp from "./routes/booking.js";
+import bookingApp from "./routes/booking.js";
 
 const app = new Hono( {
   strict: false
@@ -18,18 +18,13 @@ const app = new Hono( {
 
 const serverStartTime = Date.now()
 
-app.use("*", async (c, next) => {
-  c.set("supabase", supabase);
-  await next();
-});
-
 app.get("/", (c) => {
   return c.text("Hello Hono!");
 });
-// app.route ("/auth", authApp)
+app.route ("/auth", authApp)
 app.route("/property", propertyApp);
 app.route("/user", userApp);
-// app.booking("/booking", bookingApp);
+app.route("/booking", bookingApp);
 
 app.get("/health/", (c) => {
   const now = Date.now()
