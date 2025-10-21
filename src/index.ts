@@ -1,7 +1,6 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
-import { supabase } from "./lib/supabase.js";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -15,6 +14,8 @@ import bookingApp from "./routes/booking.js";
 const app = new Hono( {
   strict: false
 });
+
+app.use("*", optionalAuth);
 
 const serverStartTime = Date.now()
 
