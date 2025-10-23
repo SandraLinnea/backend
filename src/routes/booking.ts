@@ -37,10 +37,10 @@ bookingApp.post("/", requireAuth, zValidator("json", createSchema), async (c) =>
 // check date
   const todayIso = new Date().toISOString().slice(0, 10); 
   if (toUtcMs(body.start_date) <= toUtcMs(todayIso)) {
-    return c.json({ error: "Startdatum måste vara i framtiden" }, 400);
+    return c.json({ error: "Startdate has to be in the future" }, 400);
   }
   if (toUtcMs(body.end_date) <= toUtcMs(body.start_date)) {
-    return c.json({ error: "Slutdatum måste vara efter startdatum" }, 400);
+    return c.json({ error: "Enddate has to be after startdate" }, 400);
   }
 
 const propLookup = body.property_id;
@@ -52,7 +52,7 @@ propQuery = isUUID(propLookup)
 
 const { data: property, error: propertyError } = await propQuery.maybeSingle();
 if (propertyError) return c.json({ error: propertyError.message }, 400);
-if (!property)     return c.json({ error: "Property hittades inte" }, 404);
+if (!property)     return c.json({ error: "property not found" }, 404);
 
   const { data: overlapping, error: overlapErr } = await sb
     .from("bookings")
@@ -64,7 +64,7 @@ if (!property)     return c.json({ error: "Property hittades inte" }, 404);
 
   if (overlapErr) return c.json({ error: overlapErr.message }, 400);
   if ((overlapping?.length ?? 0) > 0) {
-    return c.json({ error: "Valda datum överlappar en befintlig bokning" }, 400);
+    return c.json({ error: "Chosen date is not avalibale" }, 400);
   }
 
   const nights = nightsUTC(body.start_date, body.end_date);
@@ -101,9 +101,9 @@ bookingApp.delete("/", requireAuth, zValidator("json", deleteSchema), async (c) 
     .single();
 
   if (error) return c.json({ error: error.message }, 400);
-  if (!data) return c.json({ error: "Bokning hittades inte" }, 404);
+  if (!data) return c.json({ error: "Booking not found" }, 404);
 
-  return c.json({ message: "Bokning borttagen", data: (data as Booking).booking_id }, 200);
+  return c.json({ message: "Booking is deleted", data: (data as Booking).booking_id }, 200);
 });
 
 export default bookingApp;
