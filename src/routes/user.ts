@@ -26,7 +26,7 @@ userApp.get("/me", optionalAuth, async (c) => {
   const user = c.get("user");
   if (!user) return c.json({ user: null }, 200);
   const { data, error } = await sb.from("profiles").select("*").eq("id", user.id).single();
-  if (error) return c.json({ error: "Not found" }, 404);
+  if (error) return c.json({ error: "Profile not found" }, 404);
   return c.json(data, 200);
 });
 
@@ -34,7 +34,7 @@ userApp.get("/:id", async (c) => {
   const sb = c.get("supabase") as SupabaseClient;
   const { id } = c.req.param();
   const { data, error } = await sb.from("profiles").select("*").eq("id", id).single();
-  if (error) return c.json({ error: "Not found" }, 404);
+  if (error) return c.json({ error: "User not found" }, 404);
   return c.json(data, 200);
 });
 

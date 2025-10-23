@@ -16,6 +16,8 @@ const app = new Hono( {
 });
 
 app.use("*", optionalAuth);
+// add a health check endpoint ?
+// add cors ?
 
 const serverStartTime = Date.now()
 

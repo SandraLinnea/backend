@@ -11,6 +11,19 @@ const propertyApp = new Hono();
 const isUUID = (s: string) =>
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(s);
 
+/* const propertySelect = `
+  property_id,
+  title,
+  description,
+  city,
+  country,
+  price_per_night,
+  availability,
+  user (
+    name,
+    email
+  )
+  ` */
 
 propertyApp.get("/", propertyQueryValidator, async (c) => {
   const query = c.req.valid("query");
