@@ -34,7 +34,6 @@ bookingApp.post("/", requireAuth, zValidator("json", createSchema), async (c) =>
   const sb = c.get("supabase") as SupabaseClient;
   const user = c.get("user")!;
   const body = c.req.valid("json");
-// check date
   const todayIso = new Date().toISOString().slice(0, 10); 
   if (toUtcMs(body.start_date) <= toUtcMs(todayIso)) {
     return c.json({ error: "Startdate has to be in the future" }, 400);
