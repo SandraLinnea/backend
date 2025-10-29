@@ -30,6 +30,19 @@ const deleteSchema = z.object({
 
 const bookingApp = new Hono();
 
+bookingApp.get("/", requireAuth, async (c) => {
+  const sb = c.get("supabase") as SupabaseClient;
+  const user = c.get("user")!;
+  const { data, error } = await sb
+    .from("bookings")
+    .select("*")
+    .eq("user_id", user.id)
+    .order("start_date", { ascending: true });
+
+  if (error) return c.json({ error: error.message }, 400);
+  return c.json(data ?? [], 200);
+});
+
 bookingApp.post("/", requireAuth, zValidator("json", createSchema), async (c) => {
   const sb = c.get("supabase") as SupabaseClient;
   const user = c.get("user")!;
