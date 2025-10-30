@@ -1,11 +1,11 @@
 {
   "name": "hono-vite-jsx",
   "type": "module",
-"scripts": {
-  "dev": "tsx watch src/index.ts",
-  "build": "node ./node_modules/typescript/lib/tsc.js -p .",
-  "start": "node dist/index.js"
-},
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p .",
+    "start": "node dist/index.js"
+  },
   "dependencies": {
     "@hono/node-server": "^1.19.5",
     "@hono/zod-validator": "^0.7.4",
