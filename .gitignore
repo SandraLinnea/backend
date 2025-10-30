@@ -1,1 +1,45 @@
+.env# --- Dependencies ---
+node_modules/
+.pnp/
+.pnp.js
+
+# --- Build-output / caches ---
+dist/
+build/
+.hono/
+.vite/
+*.tsbuildinfo
+
+# --- Env-filer (lägg upp en .env.example i repo) ---
 .env
+.env.*
+!.env.example
+
+# --- Loggar ---
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# --- Test/coverage ---
+coverage/
+.nyc_output/
+
+# --- OS/Editor ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# --- Process/lock ---
+*.pid
+*.pid.lock
+*.seed
+
+# --- Vercel (lokal projektlänk; behövs inte i repo) ---
+.vercel/
