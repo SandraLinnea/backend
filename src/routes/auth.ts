@@ -3,6 +3,8 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { zValidator } from "@hono/zod-validator";
 import * as z from "zod";
 import { optionalAuth, requireAuth } from "../middleware/auth";
+import { deleteCookie } from "hono/cookie";
+import { setCookie } from "hono/cookie";
 
 const authApp = new Hono();
 
@@ -35,7 +37,6 @@ authApp.post("/register", zValidator("json", registerSchema), async (c) => {
   );
 });
 
-
 authApp.post("/login", zValidator("json", loginSchema), async (c) => {
   const sb = c.get("supabase") as SupabaseClient;
   const { email, password } = c.req.valid("json");
@@ -44,11 +45,28 @@ authApp.post("/login", zValidator("json", loginSchema), async (c) => {
   return c.json({ user: { id: data.user.id, email: data.user.email } }, 200);
 });
 
-authApp.post("/logout", requireAuth, async (c) => {
+authApp.post("/logout", async (c) => {
   const sb = c.get("supabase") as SupabaseClient;
-  await sb.auth.signOut();
-  return c.body(null, 204);
+  const { error } = await sb.auth.signOut();
+  const secure = process.env.NODE_ENV === "production";
+  setCookie(c, "sb-access-token", "", {
+    path: "/",
+    httpOnly: true,
+    sameSite: "Lax",
+    secure,
+    maxAge: 0,
+  });
+  setCookie(c, "sb-refresh-token", "", {
+    path: "/",
+    httpOnly: true,
+    sameSite: "Lax",
+    secure,
+    maxAge: 0,
+  });
+  if (error) return c.json({ error: error.message }, 400);
+  return c.json({ message: "Utloggad" });
 });
+
 
 authApp.get("/me", optionalAuth, async (c) => {
   const sb = c.get("supabase") as SupabaseClient;
