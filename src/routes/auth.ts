@@ -47,24 +47,24 @@ authApp.post("/login", zValidator("json", loginSchema), async (c) => {
 
 authApp.post("/logout", async (c) => {
   const sb = c.get("supabase") as SupabaseClient;
-  const { error } = await sb.auth.signOut();
+  try {
+    await sb.auth.signOut();
+  } catch {
+  }
+
   const secure = process.env.NODE_ENV === "production";
-  setCookie(c, "sb-access-token", "", {
+  const opts = {
     path: "/",
     httpOnly: true,
-    sameSite: "Lax",
+    sameSite: "lax" as const,
     secure,
     maxAge: 0,
-  });
-  setCookie(c, "sb-refresh-token", "", {
-    path: "/",
-    httpOnly: true,
-    sameSite: "Lax",
-    secure,
-    maxAge: 0,
-  });
-  if (error) return c.json({ error: error.message }, 400);
-  return c.json({ message: "Utloggad" });
+  };
+
+  setCookie(c, "sb-access-token", "", opts);
+  setCookie(c, "sb-refresh-token", "", opts);
+
+  return c.json({ message: "Utloggad" }, 200);
 });
 
 
