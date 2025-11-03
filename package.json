@@ -12,6 +12,7 @@
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.47.10",
     "bcryptjs": "^3.0.2",
+    "dotenv": "^17.2.3",
     "hono": "^4.9.12",
     "jsonwebtoken": "^9.0.2",
     "slugify": "^1.6.6"
