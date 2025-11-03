@@ -23,7 +23,7 @@ const FRONTEND_ORIGIN =
     ? "https://<din-vercel-app>.vercel.app"
     : "http://localhost:3000");
 
-app.use(
+/* app.use(
   "*",
   cors({
     origin: (origin: string | null, _c: Context) => {
@@ -31,6 +31,26 @@ app.use(
 
       const allowed = [FRONTEND_ORIGIN, "http://localhost:3000"];
       return allowed.includes(origin) ? origin : null;
+    },
+    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+    maxAge: 60 * 60 * 24,
+  })
+); */
+
+app.use(
+  "*",
+  cors({
+    origin: (origin: string | null) => {
+      const ALLOW = new Set<string>([
+        "http://localhost:3000",
+        process.env.FRONTEND_ORIGIN ?? "",
+      ]);
+      const isVercelPreview = !!origin && origin.endsWith(".vercel.app");
+
+      if (!origin) return process.env.FRONTEND_ORIGIN ?? "http://localhost:3000";
+      return ALLOW.has(origin) || isVercelPreview ? origin : null;
     },
     allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowHeaders: ["Content-Type", "Authorization"],
