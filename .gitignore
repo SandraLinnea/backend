@@ -5,7 +5,7 @@ Thumbs.db
 .idea/
 *.iml
 
-node_modules/
+
 
 dist/
 build/
