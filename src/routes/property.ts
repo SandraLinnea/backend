@@ -51,42 +51,7 @@ propertyApp.get("/", propertyQueryValidator, async (c) => {
   if (error) return c.json({ error: "Could not find property" }, 404);
   return c.json(data, 200);
 }); 
-/* 
-propertyApp.post("/", requireAuth, propertyValidator, async (c) => {
-  const sb = c.get("supabase") as SupabaseClient;
-  const user = c.get("user")!;
-  const body = c.req.valid("json") as any;
 
-  const payload = { ...body, owner_id: user.id };
-  const { data, error } = await sb.from("properties").insert([payload]).select().single();
-  if (error) return c.json({ error: error.message }, 400);
-  return c.json(data, 201);
-});
-
-propertyApp.put("/:id", requireAuth, async (c) => {
-  const sb = c.get("supabase") as SupabaseClient;
-  const user = c.get("user")!;
-  const { id } = c.req.param();
-  const body = await c.req.json();
-
-  const { data: me } = await sb
-    .from("profiles")
-    .select("is_admin")
-    .eq("id", user.id)
-    .maybeSingle();
-
-  const isAdmin = !!me?.is_admin;
-
-  const base = sb.from("properties");
-  const q = isAdmin
-    ? base.update(body).eq("property_code", id).select().single()
-    : base.update(body).match({ property_code: id, owner_id: user.id }).select().single();
-
-  const { data, error } = await q;
-  if (error) return c.json({ error: error.message }, 400);
-  if (!data) return c.json({ error: "Not found" }, 404);
-  return c.json(data, 200);
-}); */
 
 propertyApp.post("/", requireAuth, propertyValidator, async (c) => {
   const sb = c.get("supabase") as SupabaseClient;
@@ -105,7 +70,6 @@ propertyApp.put("/:id", requireAuth, async (c) => {
   const { id } = c.req.param();
   const body = await c.req.json();
 
-  // skydda: bara ägaren får ändra
   const { data: existing, error: getErr } = await sb
     .from("properties")
     .select("owner_id")
@@ -114,7 +78,6 @@ propertyApp.put("/:id", requireAuth, async (c) => {
   if (getErr) return c.json({ error: getErr.message }, 400);
   if (!existing || existing.owner_id !== user.id) return c.json({ error: "Forbidden" }, 403);
 
-  // tillåt endast redigerbara fält
   const allowed = (({
     title, description, city, country, price_per_night, availability, image_url,
   }) => ({ title, description, city, country, price_per_night, availability, image_url }))(body);
@@ -129,8 +92,6 @@ propertyApp.put("/:id", requireAuth, async (c) => {
   if (error) return c.json({ error: error.message }, 400);
   return c.json(data, 200);
 });
-
-
 
 propertyApp.delete("/:id", requireAuth, async (c) => {
   const sb = c.get("supabase") as SupabaseClient;
