@@ -3,7 +3,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { requireAuth } from "../middleware/auth.js";
 import { zValidator } from "@hono/zod-validator";
 import * as z from "zod";
-import type { Booking } from "../types/booking";
+import type { Booking } from "../types/booking.js";
 
 const isUUID = (s: string) =>
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(s);

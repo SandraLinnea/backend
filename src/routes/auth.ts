@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { zValidator } from "@hono/zod-validator";
 import * as z from "zod";
-import { optionalAuth, requireAuth } from "../middleware/auth";
+import { optionalAuth, requireAuth } from "../middleware/auth.js";
 import { deleteCookie } from "hono/cookie";
 import { setCookie } from "hono/cookie";
 

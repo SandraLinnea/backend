@@ -1,5 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { Booking, NewBooking, BookingListQuery } from "../types/booking";
+import { Booking, NewBooking, BookingListQuery } from "../types/booking.js";
 
 export type PaginatedListResponse<T> = {
   data: T[];

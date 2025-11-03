@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { userQueryValidator, userValidator } from "../validators/userValidator";
-import { optionalAuth, requireAuth } from "../middleware/auth";
+import { userQueryValidator, userValidator } from "../validators/userValidator.js";
+import { optionalAuth, requireAuth } from "../middleware/auth.js";
 
 const userApp = new Hono();
 

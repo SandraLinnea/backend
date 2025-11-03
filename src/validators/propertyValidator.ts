@@ -26,7 +26,7 @@ export const propertyValidator = zValidator("json", schema, (result, c) => {
     return c.json({ errors: result.error.issues }, 400);
   }
   if (!result.data.property_code) {
-    result.data.property_code = slugify(result.data.title, { lower: true, strict: true });
+    result.data.property_code = slugify.default(result.data.title, { lower: true, strict: true });
   }
 });
 

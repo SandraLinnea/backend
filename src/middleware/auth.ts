@@ -3,7 +3,7 @@ import { setCookie } from "hono/cookie";
 import { createServerClient, parseCookieHeader } from "@supabase/ssr";
 import type { SupabaseClient, User } from "@supabase/supabase-js";
 import { HTTPException } from "hono/http-exception";
-import { supabaseUrl, supabaseAnonKey } from "../lib/supabase";
+import { supabaseUrl, supabaseAnonKey } from "../lib/supabase.js";
 
 declare module "hono" {
   interface ContextVariableMap {
