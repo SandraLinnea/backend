@@ -83,9 +83,9 @@ import { Hono } from "hono";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { zValidator } from "@hono/zod-validator";
 import * as z from "zod";
-import { optionalAuth, requireAuth } from "../middleware/auth.js";
+import { optionalAuth } from "../middleware/auth.js";
 import { setCookie } from "hono/cookie";
-import type { CookieOptions } from "hono/utils/cookie"; 
+import type { CookieOptions } from "hono/utils/cookie";
 
 const authApp = new Hono();
 
@@ -103,13 +103,11 @@ const loginSchema = z.object({
 authApp.post("/register", zValidator("json", registerSchema), async (c) => {
   const sb = c.get("supabase") as SupabaseClient;
   const { email, password, name } = c.req.valid("json");
-
   const { data, error } = await sb.auth.signUp({
     email,
     password,
     options: { data: { name } },
   });
-
   if (error) return c.json({ error: error.message }, 400);
 
   return c.json(
@@ -123,30 +121,25 @@ authApp.post("/register", zValidator("json", registerSchema), async (c) => {
 authApp.post("/login", zValidator("json", loginSchema), async (c) => {
   const sb = c.get("supabase") as SupabaseClient;
   const { email, password } = c.req.valid("json");
-
   const { data, error } = await sb.auth.signInWithPassword({ email, password });
-
   if (error) return c.json({ error: error.message }, 401);
 
+  // Supabase SSR sätter cookies via middleware → returnera bara lite user-info
   return c.json({ user: { id: data.user.id, email: data.user.email } }, 200);
 });
 
 authApp.post("/logout", async (c) => {
   const sb = c.get("supabase") as SupabaseClient;
-  try {
-    await sb.auth.signOut();
-  } catch {
-  }
+  try { await sb.auth.signOut(); } catch {}
 
-  const secure = process.env.NODE_ENV === "production";
-
-  const sameSite: CookieOptions["sameSite"] = secure ? "none" : "lax";
-
+  const isProd = process.env.NODE_ENV === "production";
+  const sameSite: CookieOptions["sameSite"] = "lax";
   const opts: CookieOptions = {
     path: "/",
     httpOnly: true,
-    secure,
+    secure: isProd,
     sameSite,
+    domain: isProd ? process.env.COOKIE_DOMAIN : undefined,
     maxAge: 0,
   };
 
@@ -159,9 +152,7 @@ authApp.post("/logout", async (c) => {
 authApp.get("/me", optionalAuth, async (c) => {
   const sb = c.get("supabase") as SupabaseClient;
   const user = c.get("user");
-
   if (!user) return c.json({ user: null }, 200);
-
   const { data: profile } = await sb
     .from("profiles")
     .select("*")
