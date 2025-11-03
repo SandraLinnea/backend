@@ -1,1 +1,22 @@
+.env# OS/Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.iml
+
+node_modules/
+
+dist/
+build/
+*.tsbuildinfo
+
 .env
+.env.*.local
+*.key
+*.pem
+*.crt
+
+.dev.vars
+.vercel/
+
