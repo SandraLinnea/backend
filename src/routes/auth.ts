@@ -90,7 +90,7 @@ import type { CookieOptions } from "hono/utils/cookie";
 const authApp = new Hono();
 
 const registerSchema = z.object({
-  email: z.string().email(),
+  email: z.string(),
   password: z.string().min(8),
   name: z.string().min(1),
 });
