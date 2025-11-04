@@ -81,14 +81,11 @@ declare module "hono" {
   }
 }
 
-/**
- * Skapar en Supabase-klient kopplad till requesten.
- * Vi sätter cookies som same-site via ett gemensamt cookie-domain.
- */
+
 function createSupabaseForRequest(c: Context) {
   const isProd = process.env.NODE_ENV === "production";
   const domain = isProd ? process.env.COOKIE_DOMAIN : undefined;
-  const sameSite: CookieOptions["sameSite"] = "lax"; // same-site räcker när vi ligger på samma eTLD+1
+  const sameSite: CookieOptions["sameSite"] = "lax"; 
 
   return createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
@@ -102,9 +99,9 @@ function createSupabaseForRequest(c: Context) {
           setCookie(c, name, value, {
             ...options,
             httpOnly: true,
-            secure: isProd,     // https i prod
-            sameSite,           // "lax" = same-site
-            domain,             // .mindomän.se → gäller app. och api.
+            secure: isProd, 
+            sameSite, 
+            domain, 
             path: "/",
           });
         });

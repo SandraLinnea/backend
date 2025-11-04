@@ -124,7 +124,6 @@ authApp.post("/login", zValidator("json", loginSchema), async (c) => {
   const { data, error } = await sb.auth.signInWithPassword({ email, password });
   if (error) return c.json({ error: error.message }, 401);
 
-  // Supabase SSR sätter cookies via middleware → returnera bara lite user-info
   return c.json({ user: { id: data.user.id, email: data.user.email } }, 200);
 });
 
