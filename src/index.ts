@@ -39,25 +39,27 @@ const FRONTEND_ORIGIN =
   })
 ); */
 
+const PROD_FE = (process.env.FRONTEND_ORIGIN ?? "").replace(/\/$/, "");
+const LOCAL_FE = "http://localhost:3000";
+
 app.use(
   "*",
   cors({
-    origin: (origin: string | null) => {
-      const ALLOW = new Set<string>([
-        "http://localhost:3000",
-        process.env.FRONTEND_ORIGIN ?? "",
-      ]);
-      const isVercelPreview = !!origin && origin.endsWith(".vercel.app");
+    origin: (origin) => {
+      if (!origin) return PROD_FE || LOCAL_FE;
 
-      if (!origin) return process.env.FRONTEND_ORIGIN ?? "http://localhost:3000";
-      return ALLOW.has(origin) || isVercelPreview ? origin : null;
+      const allow = new Set([PROD_FE, LOCAL_FE].filter(Boolean));
+      const isVercelPreview = /\.vercel\.app$/i.test(origin);
+
+      return allow.has(origin) || isVercelPreview ? origin : null;
     },
-    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowHeaders: ["Content-Type", "Authorization"],
     credentials: true,
+    allowMethods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowHeaders: ["Content-Type", "Authorization"],
     maxAge: 60 * 60 * 24,
   })
 );
+
 
 app.use("*", optionalAuth);
 

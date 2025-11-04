@@ -101,7 +101,6 @@ function createSupabaseForRequest(c: Context) {
             httpOnly: true,
             secure: isProd, 
             sameSite, 
-            domain, 
             path: "/",
           });
         });
