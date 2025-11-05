@@ -3,8 +3,8 @@ import { zValidator } from "@hono/zod-validator";
 
 export const BookingStatusEnum = z.enum(["pending", "confirmed", "cancelled"]);
 
-const bookingSchema = z.object({
-  property_id: z.string(),
+export const bookingSchema = z.object({
+  property_id: z.string().min(1),
   start_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   end_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   guests: z.number().int().positive().optional(),
@@ -18,7 +18,10 @@ export const bookingValidator = zValidator("json", bookingSchema, (result, c) =>
   }
   const { start_date, end_date } = result.data;
   if (new Date(end_date) <= new Date(start_date)) {
-    return c.json({ errors: [{ path: ["end_date"], message: "end_date must be after start_date" }] }, 400);
+    return c.json(
+      { errors: [{ path: ["end_date"], message: "end_date must be after start_date" }] },
+      400
+    );
   }
 });
 
